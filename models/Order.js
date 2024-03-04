@@ -1,17 +1,49 @@
-import mongoose from 'mongoose';
-const orderSchema = new mongoose.Schema({
+import { Schema, model } from 'mongoose';
+
+const orderSchema = new Schema({
   customer: {
-    name: String,
-    email: String,
-    phone: String,
-    address: String,
+    name: {
+      type: String,
+      required: true,
+    },
+    email: {
+      type: String,
+      required: true,
+    },
+    phone: {
+      type: String,
+      required: true,
+    },
+    address: {
+      type: String,
+      required: true,
+    },
   },
-  items: [{
-    name: String,
-    quantity: Number,
-    price: Number,
-  }],
-  total: Number,
+  items: [
+    {
+      name: {
+        type: String,
+        required: true,
+      },
+      quantity: {
+        type: Number,
+        required: true,
+        min: 1,
+      },
+      price: {
+        type: Number,
+        required: true,
+        min: 0,
+      },
+    },
+  ],
+  total: {
+    type: Number,
+    required: true,
+    min: 0,
+  },
 });
-const Order = mongoose.model('Order', orderSchema);
-export { Order };
+
+const Order = model('Order', orderSchema);
+
+export default Order;

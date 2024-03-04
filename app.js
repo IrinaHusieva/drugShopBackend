@@ -2,7 +2,7 @@ import express from 'express'
 import logger from 'morgan'
 import cors from 'cors'
 import 'dotenv/config'
-import routerOrder from './routes/api/orders.js'
+// import contactsRouter from './routes/api/contacts.js'
 import shopsRouter from './routes/api/shops.js'
 import {
   handleNotFound,
@@ -12,10 +12,10 @@ import {
 const app = express()
 const formatsLogger = app.get('env') === 'development' ? 'dev' : 'short'
 app.use(logger(formatsLogger))
-app.use(cors())
+app.use(cors(corsOptions));
 app.use(express.json())
 app.use('/api/shops', shopsRouter);
-app.use('/api/orders', routerOrder);
+app.use('/api/submit-order', shopsRouter);
 app.use(handleNotFound);
 app.use(handleBadRequest);
 app.use(handleInternalServerError);
